@@ -6,12 +6,13 @@ import java.util.Objects;
 @Entity
 public class Employee extends BaseEntity {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String role;
 
-    public Employee(Long id, String name, String role) {
-        super(id);
-        this.name = name;
+    public Employee(String firstName, String lastName, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
 
@@ -19,12 +20,31 @@ public class Employee extends BaseEntity {
     }
 
     public String getName() {
-        return name;
+        return this.firstName + " " + this.lastName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        String[] parts = name.split(" ");
+        this.firstName = parts[0];
+        this.lastName = parts[1];
     }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 
     public String getRole() {
         return role;
@@ -40,19 +60,17 @@ public class Employee extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(name, employee.name) && Objects.equals(role, employee.role);
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(role, employee.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, role);
+        return Objects.hash(super.hashCode(), firstName, lastName, role);
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return "Employee{" + "id=" + super.getId() + ", firstName='" + this.firstName + '\'' + ", lastName='" + this.lastName
+                + '\'' + ", role='" + this.role + '\'' + '}';
     }
 }
